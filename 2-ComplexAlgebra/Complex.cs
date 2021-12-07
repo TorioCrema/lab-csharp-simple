@@ -1,3 +1,5 @@
+using System;
+
 namespace ComplexAlgebra
 {
     /// <summary>
@@ -25,5 +27,13 @@ namespace ComplexAlgebra
             this.Re = re;
             this.Im = im;
         }
+
+        public Complex Plus(Complex a) => new Complex(this.Re + a.Re, this.Im + a.Im);
+
+        public Complex Minus(Complex a) => new Complex(this.Re - a.Re, this.Im - a.Im);
+
+        public double Modulus => Math.Sqrt(Math.Pow(this.Re, 2) + Math.Pow(this.Im, 2));
+
+        public double Phase => Math.Acos(this.Re);
     }
 }
