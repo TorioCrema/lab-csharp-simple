@@ -33,22 +33,13 @@ namespace Properties
         }
 
         // TODO improve
-        public string GetSeed()
-        {
-            return this.seed;
-        }
+        public string GetSeed() => this.seed;
 
         // TODO improve
-        public string GetName()
-        {
-            return this.name;
-        }
+        public string GetName() => this.name;
 
         // TODO improve
-        public int GetOrdinal()
-        {
-            return this.ordinal;
-        }
+        public int GetOrdinal() => this.ordinal;
 
         /// <inheritdoc cref="object.ToString"/>
         public override string ToString()
@@ -60,5 +51,22 @@ namespace Properties
         // TODO generate Equals(object obj)
 
         // TODO generate GetHashCode()
+        protected bool Equals(Card other)
+        {
+            return seed == other.seed && name == other.name && ordinal == other.ordinal;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Card) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(seed, name, ordinal);
+        }
     }
 }
