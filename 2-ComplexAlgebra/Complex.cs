@@ -36,7 +36,7 @@ namespace ComplexAlgebra
 
         public double Phase => Math.Acos(this.Real);
 
-        public Complex Complement => new Complex(this.Real, -this.Imaginary);
+        public Complex Complement() => new Complex(this.Real, -this.Imaginary);
 
         public override string ToString()
         {
