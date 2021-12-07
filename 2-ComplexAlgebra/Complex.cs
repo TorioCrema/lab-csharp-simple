@@ -17,6 +17,13 @@ namespace ComplexAlgebra
     /// TODO:     - e.g. via the Equals(object) method
     public class Complex
     {
-        // TODO: fill this class\
+        public double Re { get; set; }
+        public double Im { get; set; }
+
+        public Complex(double re, double im)
+        {
+            this.Re = re;
+            this.Im = im;
+        }
     }
 }
