@@ -19,21 +19,23 @@ namespace ComplexAlgebra
     /// TODO:     - e.g. via the Equals(object) method
     public class Complex
     {
-        public double Re { get; set; }
-        public double Im { get; set; }
+        public double Real { get; set; }
+        public double Imaginary { get; set; }
 
-        public Complex(double re, double im)
+        public Complex(double real, double imaginary)
         {
-            this.Re = re;
-            this.Im = im;
+            this.Real = real;
+            this.Imaginary = imaginary;
         }
 
-        public Complex Plus(Complex a) => new Complex(this.Re + a.Re, this.Im + a.Im);
+        public Complex Plus(Complex a) => new Complex(this.Real + a.Real, this.Imaginary + a.Imaginary);
 
-        public Complex Minus(Complex a) => new Complex(this.Re - a.Re, this.Im - a.Im);
+        public Complex Minus(Complex a) => new Complex(this.Real - a.Real, this.Imaginary - a.Imaginary);
 
-        public double Modulus => Math.Sqrt(Math.Pow(this.Re, 2) + Math.Pow(this.Im, 2));
+        public double Modulus => Math.Sqrt(Math.Pow(this.Real, 2) + Math.Pow(this.Imaginary, 2));
 
-        public double Phase => Math.Acos(this.Re);
+        public double Phase => Math.Acos(this.Real);
+
+        public Complex Complement => new Complex(this.Real, -this.Imaginary);
     }
 }
