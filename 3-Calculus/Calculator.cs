@@ -27,6 +27,12 @@ namespace Calculus
         public const char OperationPlus = '+';
         public const char OperationMinus = '-';
 
-        // TODO fill this class
+        private Complex _value;
+        
+        public Complex Value
+        {
+            get => _value;
+            set => _value = value;
+        }
     }
 }
