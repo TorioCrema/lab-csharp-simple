@@ -34,7 +34,7 @@ namespace ComplexAlgebra
 
         public double Modulus => Math.Sqrt(Math.Pow(this.Real, 2) + Math.Pow(this.Imaginary, 2));
 
-        public double Phase => Math.Acos(this.Real);
+        public double Phase => Math.Atan2(this.Imaginary, this.Real);
 
         public Complex Complement() => new Complex(this.Real, -this.Imaginary);
 
@@ -46,5 +46,7 @@ namespace ComplexAlgebra
                   + (Real != 0 && Imaginary > 0 ? "+" : "") 
                   + (Imaginary == 1 ? "" : (Imaginary == -1 ? "-" : Imaginary.ToString())) + "i";
         }
+
+        public bool Equals(Complex a) => this.Real.Equals(a.Real) && this.Imaginary.Equals(a.Imaginary);
     }
 }
