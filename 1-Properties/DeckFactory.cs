@@ -9,24 +9,26 @@ namespace Properties
     /// </summary>
     public class DeckFactory
     {
-        private string[] seeds;
+        private string[] _seeds;
 
-        private string[] names;
-
-        // TODO improve
-        public IList<string> GetSeeds() => this.seeds.ToList();
+        private string[] _names;
 
         // TODO improve
-        public void SetSeeds(IList<string> seeds) => this.seeds = seeds.ToArray();
+        public IList<string> Seeds
+        {
+            get => this._seeds.ToList();
+            set => this._seeds = value.ToArray();
+        }
 
         // TODO improve
-        public IList<string> GetNames() => this.names.ToList();
+        public IList<string> Names
+        {
+            get => this._names.ToList();
+            set => this._names = value.ToArray();
+        }
 
         // TODO improve
-        public void SetNames(IList<string> names) => this.names = names.ToArray();
-
-        // TODO improve
-        public int GetDeckSize() => this.names.Length * this.seeds.Length;
+        public int GetDeckSize() => this.Names.Count * this.Seeds.Count;
 
         /// TODO improve
         public ISet<Card> GetDeck()
