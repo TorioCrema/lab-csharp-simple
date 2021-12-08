@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using ComplexAlgebra;
 
 namespace Calculus
@@ -28,11 +30,60 @@ namespace Calculus
         public const char OperationMinus = '-';
 
         private Complex _value;
+        private Complex _result;
+        private char _currOperation;
         
         public Complex Value
         {
             get => _value;
-            set => _value = value;
+            set
+            {
+                _value = value;
+                if (_currOperation == OperationPlus)
+                {
+                    _result = _result.Plus(value);
+                }
+                else if (_currOperation == OperationMinus)
+                {
+                    _result = _result.Minus(value);
+                }
+                else
+                {
+                    _result = value;
+                }
+
+                _currOperation = 'n';
+            } 
+        }
+
+        private bool HasOp() => _currOperation == OperationMinus || _currOperation == OperationPlus;
+
+        public char Operation
+        {
+            set => this._currOperation = value; 
+        }
+
+        public void ComputeResult() => _value = _result;
+
+        public void Reset()
+        {
+            _result = null;
+            _value = null;
+        }
+
+        public override string ToString()
+        {
+            var s = (_value != null ? _value.ToString() : "null") + ", ";
+            if (HasOp())
+            {
+                s += _currOperation;
+            }
+            else
+            {
+                s += "null";
+            }
+
+            return s;
         }
     }
 }
