@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 
 namespace ComplexAlgebra
 {
@@ -40,11 +41,11 @@ namespace ComplexAlgebra
 
         public override string ToString()
         {
-            return this.Imaginary == 0
-                ? this.Real.ToString()
-                : (Real == 0 ? "" : Real.ToString()) 
+            return this.Imaginary.Equals(0.0)
+                ? this.Real.ToString(CultureInfo.CurrentCulture)
+                : (Real == 0 ? "" : Real.ToString(CultureInfo.CurrentCulture)) 
                   + (Real != 0 && Imaginary > 0 ? "+" : "") 
-                  + (Imaginary == 1 ? "" : (Imaginary == -1 ? "-" : Imaginary.ToString())) + "i";
+                  + (Imaginary.Equals(1.0) ? "" : (Imaginary.Equals(1.0) ? "-" : Imaginary.ToString(CultureInfo.CurrentCulture))) + "i";
         }
 
         public bool Equals(Complex a) => this.Real.Equals(a.Real) && this.Imaginary.Equals(a.Imaginary);
