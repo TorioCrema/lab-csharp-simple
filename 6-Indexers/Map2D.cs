@@ -31,7 +31,9 @@ namespace Indexers
         /// <inheritdoc cref="IMap2D{TKey1, TKey2, TValue}.GetColumn(TKey2)" />
         public IList<Tuple<TKey1, TValue>> GetColumn(TKey2 key2)
         {
-            throw new NotImplementedException();
+            return _map.Keys.Where(t => t.Item2.Equals(key2))
+                .Select(t => Tuple.Create(t.Item1, _map[t]))
+                .ToList();
         }
 
         /// <inheritdoc cref="IMap2D{TKey1, TKey2, TValue}.GetElements" />
