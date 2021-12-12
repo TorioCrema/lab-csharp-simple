@@ -28,62 +28,61 @@ namespace Calculus
     {
         public const char OperationPlus = '+';
         public const char OperationMinus = '-';
-
-        private Complex _value;
-        private Complex _result;
-        private char _currOperation;
         
-        public Complex Value
+        private Complex _intermediateResult = null;
+        private char? _operation = null;
+        
+        public Complex Value { get; set; }
+
+        public char? Operation
         {
-            get => _value;
+            get => _operation;
             set
             {
-                _value = value;
-                if (_currOperation == OperationPlus)
+                if (HasPendingOperations)
                 {
-                    _result = _result.Plus(value);
-                }
-                else if (_currOperation == OperationMinus)
-                {
-                    _result = _result.Minus(value);
-                }
-                else
-                {
-                    _result = value;
+                    ComputeResult();
                 }
 
-                _currOperation = 'n';
-            } 
+                _operation = value;
+                _intermediateResult = Value;
+                Value = null;
+            }
         }
 
-        private bool HasOp() => _currOperation == OperationMinus || _currOperation == OperationPlus;
+        private bool HasPendingOperations => _intermediateResult != null;
 
-        public char Operation
+        public void ComputeResult()
         {
-            set => this._currOperation = value; 
-        }
+            switch (_operation)
+            {
+                case OperationPlus:
+                    Value = _intermediateResult.Plus(Value);
+                    break;
+                case OperationMinus:
+                    Value = _intermediateResult.Minus(Value);
+                    break;
+                case null:
+                default:
+                    break;
+            }
 
-        public void ComputeResult() => _value = _result;
+            _operation = null;
+            _intermediateResult = null;
+        }
 
         public void Reset()
         {
-            _result = null;
-            _value = null;
+            _operation = null;
+            _intermediateResult = null;
+            Value = null;
         }
 
         public override string ToString()
         {
-            var s = (_value != null ? _value.ToString() : "null") + ", ";
-            if (HasOp())
-            {
-                s += _currOperation;
-            }
-            else
-            {
-                s += "null";
-            }
-
-            return s;
+            var value = Value == null ? "null" : $"{Value}";
+            var operation = Operation == null ? "null" : $"{Operation}";
+            return $"{value}, {operation}";
         }
     }
 }
