@@ -70,15 +70,13 @@ namespace Indexers
         /// <inheritdoc cref="object.GetHashCode"/>
         public override int GetHashCode()
         {
-            // TODO: improve
-            return base.GetHashCode();
+            return this.GetElements().GetHashCode();
         }
 
         /// <inheritdoc cref="IMap2D{TKey1, TKey2, TValue}.ToString"/>
         public override string ToString()
         {
-            // TODO: improve
-            return base.ToString();
+            return this.GetElements().ToString();
         }
     }
 }
