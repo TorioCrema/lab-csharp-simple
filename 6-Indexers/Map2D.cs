@@ -57,8 +57,7 @@ namespace Indexers
         /// <inheritdoc cref="IEquatable{T}.Equals(T)" />
         public bool Equals(IMap2D<TKey1, TKey2, TValue> other)
         {
-            // TODO: improve
-            return base.Equals(other);
+            return other != null && this.GetElements().Equals(other.GetElements());
         }
 
         /// <inheritdoc cref="object.Equals(object?)" />
