@@ -8,30 +8,24 @@ namespace Indexers
     /// <inheritdoc cref="IMap2D{TKey1,TKey2,TValue}" />
     public class Map2D<TKey1, TKey2, TValue> : IMap2D<TKey1, TKey2, TValue>
     {
-        private Dictionary<Tuple<TKey1, TKey2>, TValue> map = new Dictionary<Tuple<TKey1, TKey2>, TValue>();
+        private readonly Dictionary<Tuple<TKey1, TKey2>, TValue> _map = new Dictionary<Tuple<TKey1, TKey2>, TValue>();
 
         /// <inheritdoc cref="IMap2D{TKey1, TKey2, TValue}.NumberOfElements" />
-        public int NumberOfElements => map.Count;
+        public int NumberOfElements => _map.Count;
 
         /// <inheritdoc cref="IMap2D{TKey1, TKey2, TValue}.this" />
         public TValue this[TKey1 key1, TKey2 key2]
         {
-            get => map.GetValueOrDefault(new Tuple<TKey1, TKey2>(key1, key2));
-            set
-            {
-                var curKeys = new Tuple<TKey1, TKey2>(key1, key2);
-                if (map.ContainsKey(curKeys))
-                {
-                    map.Remove(curKeys);
-                }
-                map.Add(curKeys, value);
-            }
+            get => _map[Tuple.Create(key1, key2)];
+            set => _map[Tuple.Create(key1, key2)] = value;
         }
 
         /// <inheritdoc cref="IMap2D{TKey1, TKey2, TValue}.GetRow(TKey1)" />
         public IList<Tuple<TKey2, TValue>> GetRow(TKey1 key1)
         {
-            throw new NotImplementedException();
+            return _map.Keys.Where(t => t.Item1.Equals(key1))
+                .Select(t => Tuple.Create(t.Item2, _map[t]))
+                .ToList();
         }
 
         /// <inheritdoc cref="IMap2D{TKey1, TKey2, TValue}.GetColumn(TKey2)" />
@@ -53,7 +47,7 @@ namespace Indexers
             {
                 foreach (var key2 in keys2)
                 {
-                    map.Add(new Tuple<TKey1, TKey2>(key1, key2), generator(key1, key2));
+                    _map.Add(new Tuple<TKey1, TKey2>(key1, key2), generator(key1, key2));
                 }
             }
         }
