@@ -39,7 +39,7 @@ namespace Indexers
         /// <inheritdoc cref="IMap2D{TKey1, TKey2, TValue}.GetElements" />
         public IList<Tuple<TKey1, TKey2, TValue>> GetElements()
         {
-            throw new NotImplementedException();
+            return _map.Keys.Select(t => Tuple.Create(t.Item1, t.Item2, _map[t])).ToList();
         }
 
         /// <inheritdoc cref="IMap2D{TKey1, TKey2, TValue}.Fill(IEnumerable{TKey1}, IEnumerable{TKey2}, Func{TKey1, TKey2, TValue})" />
