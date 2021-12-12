@@ -84,7 +84,12 @@ namespace Iterators
         /// <returns>the new sequence.</returns>
         public static IEnumerable<Tuple<int, TAny>> Indexed<TAny>(this IEnumerable<TAny> sequence)
         {
-            throw new NotImplementedException();
+            var index = 0;
+            foreach (var i in sequence)
+            {
+                yield return new Tuple<int, TAny>(index, i);
+                index++;
+            }
         }
 
         /// <summary>
